@@ -22,14 +22,14 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    
+
     .header__login {
 
       .login_span {
         color: #777777;
 
         margin-right: 15px;
-        
+
       }
     }
   }
@@ -39,48 +39,223 @@
     justify-content: space-between;
     align-items: center;
 
+    position: relative;
+    z-index: 4;
+
     width: 100%;
     background-color: #FFFFFF;
     border-bottom: 1px solid #DEDDDE;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 
     padding-left: 10px;
 
     .menu__list {
       display: flex;
+      position: relative;
+      z-index: 10;
 
       .menu__item {
         margin-right: 32.8px;
+        position: relative;
+        z-index: 4;
 
-        a {
+        .menu__link {
+
+          position: relative;
+          z-index: 4;
           font-weight: 700;
           font-size: 14px;
           line-height: 16px;
 
-         
+          svg {
+            vertical-align: middle;
+            position: relative;
+            z-index: 4;
+          }
         }
-        svg{
-          vertical-align: middle;
-      
-        }
+
+       
       }
 
-      .menu__item:nth-last-child(-n+3) {
-        a {
-          font-weight: 400;
+      .item_sub_menu--container{
+        display: none;
 
 
+        .item__sub__menu--form {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          position: relative;
 
+          z-index: 1;
+          .menu__form__genre{
+            position: relative;
+            width:200px;
+            padding: 15px;
+            border: 3px solid rgb(243, 206, 206);
+            margin-left: 20px;
+            z-index: 5;
+            cursor:default;
+          }
+       
+         .menu__form__genre::before{
+          content: '▲';
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          font-size: 12px;
+         }
+         .menu__form__genre::after{
+          content: '▼';
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          font-size: 12px;
+         }
+         .select__form--genre{
+          display: none;
+          position: absolute;
+          flex-direction: column;
+          width: 102%;
+          height: 250px;
+          overflow-y: scroll;
+          z-index: 1;
+          
+          background-color: $whiteColor;
+          left: -1px;
+          bottom: 46px;
+          border-bottom: none;
+          border-top: 3px solid $blackColor;
+          border-right: 3px solid $blackColor;
+          border-left: 3px solid $blackColor;
+          .select__form--item{
+            margin: 8px 0;
+            padding: 5px;
+            cursor: pointer;
+          }
+          .select__form--item:hover{
+            background-color: #9b9999;
+          }
+         }
+         .item__sub__menu__button{
+          margin-left: 10px;
+          padding: 17px 20px 17px;
+          background-color: #00a0b0;
+          border: 1px solid #0098a7;
+          border-radius: 5px;
+          color: $whiteColor;
+        } 
+
+
+ 
+       
         }
-
       }
     }
-    .menu__item:hover{
-     
-      a{
+
+
+    .menu__item:hover> .item_sub_menu--container{
+      display: inline-block;
+      width: 960px;
+      height: 320px;
+      position: absolute;
+      left: 0;
+      top: 13px;
+      
+      .item__sub__menu {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 0;
+        z-index: 3;
+        width: 960px;
+        padding: 20px;
+        margin-top: 18px;
+        margin-left: 10px;
+        box-shadow: inset 0 10px 30px -10px rgba(0, 0, 0, .3), 0 10px 20px -10px rgba(0, 0, 0, .3);
+        background: rgba(255, 255, 255, .98);
+        animation-name: list__transofrm;
+        animation-duration: .5s;
+        animation-timing-function: ease-in-out;
+        
+        animation-fill-mode: forwards;
+        @keyframes list__transofrm {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+  
+        }
+  
+        .item__sub__menu--list {
+          display: flex;
+  
+          flex-wrap: wrap;
+  
+          width: 75%;
+          height: 75%;
+  
+          .item__sub__menu__list--item {
+            width: 20%;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            padding: 5px 0 5px 5px;
+            color: rgb(51, 51, 246);
+          }
+          .item__sub__menu__list--item:hover{
+            background-color: #9b9999;
+            color: rgb(250, 160, 146);
+            
+            border-radius: 2px;
+          }
+          .item__sub__menu--icons {
+            width: 25%;
+          }
+  
+         
+        }
+  
+        .menu__item:nth-last-child(-n+3) {
+          a {
+            font-weight: 400;
+  
+  
+  
+          }
+  
+        }
+      }
+    }
+    
+    .menu__item:hover > .tv-show{
+      left: -100px;
+    }
+    .menu__item:hover > .mult{
+      left: -200px;
+    }
+    .menu__item:hover > .anime{
+      left: -340px;
+    }
+    
+    // .item__sub__menu::before {
+    //   content: "";
+    //   position: absolute;
+    //   top: 22px; /* Вертикальное смещение тени */
+    //   left: 0;
+    //   width: 100%;
+    //   height: 5px; /* Высота тени */
+    //   box-shadow: 0px 10px 10 px rgba(0, 0, 0, 0.5); /* Стиль и цвет тени */
+    // }
+    .menu__item:hover {
+
+      a {
         text-decoration: underline;
       }
-      svg{
+
+      svg {
         transform: rotate(-180deg);
         transition-duration: .4s;
       }
@@ -89,15 +264,20 @@
     .form__search {
       display: flex;
       align-items: center;
-      width:238px;
+      width: 238px;
       height: 44px;
       margin-right: 54.1px;
-      .search__input{
+      position: relative;
+      z-index: 10;
+
+      .search__input {
         min-width: 178px;
+
       }
-      
+
     }
-    .search__btn{
+
+    .search__btn {
       width: 24px;
       height: 43px !important;
       background-image: url('../images/search.svg');
@@ -107,9 +287,9 @@
       background-repeat: no-repeat;
       margin-right: 8px;
     }
-    
+
   }
-  
+
 }
 
 // =====================================================================================================================

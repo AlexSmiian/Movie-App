@@ -56,9 +56,7 @@ function showNewMovie(data) {
 					</div>
 		`;
 		const movieTitle = card.querySelector('.movie__title');
-    // movieTitle.style.fontSize = '12px';
-		// movieTitle.style.color = '#4682B4'
-
+  
 
 		const cardTextInfo = card.querySelector('.card__text_info');
     cardTextInfo.style.fontSize = '12px'; 
