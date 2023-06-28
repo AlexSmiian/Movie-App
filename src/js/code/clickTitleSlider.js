@@ -1,6 +1,6 @@
 
 export function clickTitleSlider (){
-	debugger
+
   const sliderTitle = document.querySelectorAll('.slider__title__link')
 	sliderTitle.forEach((el)=>{
 		el.addEventListener('click',()=>{
