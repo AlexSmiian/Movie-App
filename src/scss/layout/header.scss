@@ -1,7 +1,7 @@
 // =====================================================================================================================
 .header {
   width: 100%;
-
+  position: relative;
   background-color: $blackColor;
 
   
@@ -20,7 +20,7 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
-
+    color: #777;
     .header__login {
 
       .login_span {

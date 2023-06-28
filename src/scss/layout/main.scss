@@ -1,0 +1,66 @@
+.main {
+	margin-bottom: 500px;
+
+	.glory {
+		display: flex;
+		justify-content: center;
+		background-color: #EFEFEF;
+
+		img {
+			width: 960px;
+		}
+	}
+
+
+
+	.collections__newest {
+		background-color: #e0e0e0;
+		padding: 20px 0;
+
+		.collections__newest_inner {
+			display: flex;
+			justify-content: space-around;
+
+
+			a {
+				display: block;
+				position: relative;
+				height: 145px;
+				width: 476px;
+				margin-left: 16px;
+
+
+				img {
+					height: 145px;
+					width: 476px;
+				}
+
+				span {
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-color: rgba(0,0,0,0);
+					width: 100%;
+					height: 100%;
+
+					strong {
+						color: $whiteColor;
+						transition: text-shadow .2s linear;
+						
+						display: block;
+						font-size: 16px;
+						font-weight: bold;
+						line-height: 20px;
+						padding: 44px 0 0 34px;
+						text-transform: uppercase;
+					}
+				}
+				span:hover{
+					background-color: rgba(0, 0, 0, .7);
+					
+					transition: background-color .2s linear;
+				}
+			}
+		}
+	}
+}
