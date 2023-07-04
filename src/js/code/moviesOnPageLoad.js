@@ -1,13 +1,16 @@
 // 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1'
 
+
+
+let data = [];
+let resultsGenre;
+const totalMovies = 1600
+const moviesPage = 20;
+const totalPage = Math.ceil(totalMovies / moviesPage)
+let count = 0
+
+// request to the server to get an array of movie objects
 export async function getMovies() {
-
-	const totalMovies = 2000
-	const moviesPage = 20;
-	const totalPage = Math.ceil(totalMovies / moviesPage)
-	let data = [];
-	let resultsGenre;
-
 	try {
 		for (let page = 1; page <= totalPage; page++) {
 			const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}`, {
@@ -32,6 +35,7 @@ export async function getMovies() {
 
 		const responseGenre = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
 		resultsGenre = await responseGenre.json()
+
 		moviesOnPageLoad(data, resultsGenre)
 	} catch (error) {
 		console.error('Error!', error);
@@ -42,35 +46,37 @@ export async function getMovies() {
 
 // match id with genre name
 function showMoviesLoaded(item, { genres }) {
-	const foundObject = genres.find(genre => genre.id === item)
-	return foundObject.name
-
+		if(item !== undefined){
+			const foundObject = genres.find(genre => genre.id === item)
+			return foundObject.name
+		}
 }
 
 
 
 
-export function moviesOnPageLoad(data, resultsGenre) {
 
-	const startVisible = 1
-	const endVisible = startVisible + 48
 
-	const countButton = data.length / endVisible
+
+// displaying movies on the main page after receiving data
+export function moviesOnPageLoad(data, resultsGenre, count = 1) {
+	debugger
+	let startVisible = count * 10
+	let endVisible = startVisible + 30
+
+	const countButton = data.length / moviesPage
 	const visibleMovie = data.slice(startVisible, endVisible)
 	const cardWrapper = document.querySelector('[data-movie-wrapper]')
 	if (data !== undefined) {
-
+		cardWrapper.innerHTML = " "
 		visibleMovie.map(item => {
 
 
 			const genre = showMoviesLoaded(item.genre_ids[1] || item.genre_ids[0], resultsGenre)
-			const genreButton = showButtonPagination()
+
 			const poster = `https://image.tmdb.org/t/p/w500${item.poster_path}`
 			const nameMovie = item.original_title
 			const realeaseDate = item.release_date
-
-
-
 
 			cardWrapper.insertAdjacentHTML('beforeend',
 				`<div class="card__movie">
@@ -106,31 +112,44 @@ export function moviesOnPageLoad(data, resultsGenre) {
 			)
 		})
 
-		showButtonPagination(Math.ceil(countButton))
+		showButtonPagination(Math.ceil(countButton), endVisible)
 	}
 
 
 }
 
-function showButtonPagination(countButton) {
-	
 
 
+// creating pagination, the number of buttons depends on the number of films
+function showButtonPagination(countButton, endVisible) {
 
-	if(countButton !== undefined){
-		debugger
+	if (countButton !== undefined) {
 		const buttonWrapperLeft = document.querySelector('[data-button-wrapper-left]')
-		console.log(buttonWrapperLeft)
-		for(let i = 0; i <= countButton;i++){
-			
+		buttonWrapperLeft.innerHTML = " "
+		for (let i = 0; i <= countButton; i++) {
 			buttonWrapperLeft.insertAdjacentHTML('beforeend',
-			`
-			<button class="button__wrapper__left">${i+1}</button>  
+				`
+			<button class="button__wrapper__left" data-btn-pagination>${i + 1}</button>  
 			`
 			)
-		
+
 		}
 	}
+	nextPageLoaded(endVisible)
+}
 
-	
+// paging movies
+function nextPageLoaded(endVisible) {
+
+	const btnPagination = document.querySelectorAll('[data-btn-pagination]')
+	if (btnPagination) {
+		btnPagination.forEach(button => {
+			button.addEventListener('click', () => {
+				debugger
+				count = parseInt(button.innerText)
+
+				moviesOnPageLoad(data, resultsGenre, count)
+			})
+		})
+	}
 }
